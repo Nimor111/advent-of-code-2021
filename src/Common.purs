@@ -6,10 +6,10 @@ module Common
 import Prelude
 
 import Data.Int (fromString)
-import Data.List (List(..), (:), fromFoldable, foldMap)
-import Data.Maybe (Maybe(..))
+import Data.List (List, foldMap, fromFoldable)
 import Data.String (split)
 import Data.String.Pattern (Pattern(..))
+import Data.Unfoldable (fromMaybe)
 import Effect (Effect)
 import Node.Encoding (Encoding(..))
 import Node.FS.Sync (readTextFile)
@@ -22,10 +22,4 @@ readInput filePath = do
   pure $ fromFoldable arrayOfInput
 
 parseInput :: List String -> List Int
-parseInput = foldMap (maybeToList <<< fromString)
-  where
-  maybeToList :: forall a. Maybe a -> List a
-  maybeToList Nothing = Nil
-  maybeToList (Just x) = (x : Nil)
--- also works
--- catMaybes $ map fromString ls
+parseInput = foldMap (fromMaybe <<< fromString)

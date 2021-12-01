@@ -17,13 +17,13 @@ to generate this file without the comments in this block.
   , "foldable-traversable"
   , "integers"
   , "lists"
-  , "maybe"
   , "node-buffer"
   , "node-fs"
   , "node-path"
   , "prelude"
   , "psci-support"
   , "strings"
+  , "unfoldable"
   ]
 , packages = ./packages.dhall
 , sources = [ "src/**/*.purs", "test/**/*.purs" ]
