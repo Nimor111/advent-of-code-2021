@@ -3,8 +3,7 @@ module Day1
   , day1Part2
   , findNumOfDepthMeasurementIncreases
   , groupInThrees
-  )
-  where
+  ) where
 
 import Prelude
 
@@ -13,14 +12,12 @@ import Data.Foldable (sum)
 import Data.List (List(..), (:))
 import Effect (Effect)
 
-
 findNumOfDepthMeasurementIncreases :: List Int -> Int
 findNumOfDepthMeasurementIncreases Nil = 0
 findNumOfDepthMeasurementIncreases (_ : Nil) = 0
-findNumOfDepthMeasurementIncreases (x : y : xs) = 
-  if x < y
-    then 1 + findNumOfDepthMeasurementIncreases (y : xs)
-    else findNumOfDepthMeasurementIncreases (y : xs)
+findNumOfDepthMeasurementIncreases (x : y : xs) =
+  if x < y then 1 + findNumOfDepthMeasurementIncreases (y : xs)
+  else findNumOfDepthMeasurementIncreases (y : xs)
 
 day1Part1 :: Effect Int
 day1Part1 = do

@@ -1,8 +1,7 @@
 module Common
   ( parseInput
   , readInput
-  )
-  where
+  ) where
 
 import Prelude
 
@@ -16,7 +15,6 @@ import Node.Encoding (Encoding(..))
 import Node.FS.Sync (readTextFile)
 import Node.Path (FilePath)
 
-
 readInput :: FilePath -> Effect (List String)
 readInput filePath = do
   inputText <- readTextFile UTF8 filePath
@@ -26,8 +24,8 @@ readInput filePath = do
 parseInput :: List String -> List Int
 parseInput = foldMap (maybeToList <<< fromString)
   where
-    maybeToList :: forall a . Maybe a -> List a
-    maybeToList Nothing = Nil
-    maybeToList (Just x) = (x : Nil)
-  -- also works
-  -- catMaybes $ map fromString ls
+  maybeToList :: forall a. Maybe a -> List a
+  maybeToList Nothing = Nil
+  maybeToList (Just x) = (x : Nil)
+-- also works
+-- catMaybes $ map fromString ls
