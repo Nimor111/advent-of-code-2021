@@ -23,7 +23,7 @@ day2Part2 :: Effect Int
 day2Part2 = do
   inputText <- readInput "./src/Day2/input.txt"
   parsedInstructions <- pure $ parseInstructions inputText
-  result <- pure $ horizontalPositionAndDepthWithAim 0 0 0 parsedInstructions
+  result <- pure $ horizontalPositionAndDepthWithAim parsedInstructions
   pure result
 
 data Direction = Down | Up | Forward | Unknown
@@ -84,10 +84,12 @@ type Horizontal = Int
 type Depth = Int
 type Aim = Int
 
-horizontalPositionAndDepthWithAim :: Horizontal -> Depth -> Aim -> List Instruction -> Int
-horizontalPositionAndDepthWithAim horizontal depth aim ({ direction, value } : xs) = case direction of
-  Up -> horizontalPositionAndDepthWithAim horizontal depth (aim - value) xs
-  Down -> horizontalPositionAndDepthWithAim horizontal depth (aim + value) xs
-  Forward -> horizontalPositionAndDepthWithAim (horizontal + value) (depth + aim * value) aim xs
-  _ -> horizontalPositionAndDepthWithAim horizontal depth aim xs
-horizontalPositionAndDepthWithAim horizontal depth _ Nil = horizontal * depth
+horizontalPositionAndDepthWithAim :: List Instruction -> Int
+horizontalPositionAndDepthWithAim instructions = go 0 0 0 instructions
+  where
+  go horizontal depth aim ({ direction, value } : xs) = case direction of
+    Up -> go horizontal depth (aim - value) xs
+    Down -> go horizontal depth (aim + value) xs
+    Forward -> go (horizontal + value) (depth + aim * value) aim xs
+    _ -> go horizontal depth aim xs
+  go horizontal depth _ Nil = horizontal * depth
