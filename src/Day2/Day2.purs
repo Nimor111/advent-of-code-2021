@@ -45,21 +45,21 @@ readDirection "up" = Up
 readDirection "forward" = Forward
 readDirection _ = Unknown
 
-type Instruction = {
-  direction :: Direction
-, value :: Int
-}
+type Instruction =
+  { direction :: Direction
+  , value :: Int
+  }
 
 parseInstruction :: String -> Int -> Instruction
-parseInstruction direction value = {
-  direction: readDirection direction,
-  value: value
-}
+parseInstruction direction value =
+  { direction: readDirection direction
+  , value: value
+  }
 
 parseInstructions :: List String -> List Instruction
 parseInstructions (stringInstruction : xs) =
   case split (Pattern " ") stringInstruction of
-    [dir, val] -> case fromString val of
+    [ dir, val ] -> case fromString val of
       Just v -> (parseInstruction dir v) : parseInstructions xs
       Nothing -> parseInstructions xs
     _ -> parseInstructions xs
