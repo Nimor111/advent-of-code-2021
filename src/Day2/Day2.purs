@@ -1,4 +1,7 @@
-module Day2 where
+module Day2
+  ( day2Part1
+  , day2Part2
+  ) where
 
 import Prelude
 
